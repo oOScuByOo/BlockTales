@@ -1,0 +1,99 @@
+<canvas id="game" width="500" height="500" style="border:1px solid #000000;"></canvas>
+
+<script>
+
+  var game = document.getElementById('game').getContext("2d");
+  game.font = '30px Arial';
+
+  var HEIGHT = 500;
+  var WIDTH = 500;
+  var message = 'Collision';
+
+  var player = {
+    x:50,
+    y:40,
+    spdX:30,
+    spdY:5,
+    name:'P',
+    hp:10,
+    maxHp:20
+  };
+
+  var enemyList = {};
+
+  getDistanceBetweenEntity = function(entity1,entity2) {
+    var vx = entity1.x - entity2.x;
+    var vy = entity1.y - entity2.y;
+    return Math.sqrt(vx*vx+vy*vy);
+  }
+
+  testCollisionEntity = function (entity1,entity2) {
+    var distance = getDistanceBetweenEntity(entity1,entity2);
+    return distance < 30;
+  }
+
+  Enemy = function(id,x,y,spdX,spdY,name) {
+    var enemy = {
+      x:x,
+      y:y,
+      spdX:spdX,
+      spdY:spdY,
+      name:name,
+      id:id,
+    };
+    enemyList[id] = enemy;
+  }
+
+  document.onmousemove = function(mouse) {
+    var mouseX = mouse.clientX;
+    var mouseY = mouse.clientY;
+
+    player.x = mouseX;
+    player.y = mouseY;
+  }
+
+  updateEntity = function(value) {
+    updateEntityPosition(value);
+    drawEntity(value);
+  }
+
+  updateEntityPosition = function(value) {
+    value.x += value.spdX;
+    value.y += value.spdY;
+
+    if(value.x < 0 || value.x > WIDTH) {
+      console.log(message);
+      value.spdX = -value.spdX;
+    }
+
+    if(value.y < 0 || value.y > WIDTH) {
+      console.log(message);
+      value.spdY = -value.spdY;
+    }
+  }
+
+  drawEntity = function(value) {
+    game.fillText(value.name,value.x,value.y);
+  }
+
+  update = function() {
+    game.clearRect(0,0,WIDTH,HEIGHT);
+    for(var getEnemyList in enemyList) {
+      updateEntity(enemyList[getEnemyList]);
+
+      var isColliding = testCollisionEntity(player,enemyList[getEnemyList]);
+      if(isColliding) {
+        player.hp = player.hp - 1;
+      }
+    }
+    drawEntity(player);
+    game.fillText(player.hp + " HP",0,30);
+  }
+
+  Enemy('E1',150,350,10,15,'E1');
+  Enemy('E2',250,350,10,-15,'E2');
+  Enemy('E3',25,120,-15,20,'E3');
+
+  setInterval(update,40);
+
+</script>
