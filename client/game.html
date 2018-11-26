@@ -16,28 +16,100 @@
 
   var player;
 
-  createPlayer = function() {
-    player = {
-      type:'player',
-      x:50,
-      y:40,
-      spdX:30,
-      spdY:5,
-      name:'P',
-      hp:10,
-      maxHp:20,
-      width:20,
-      height:20,
-      color:'green',
-      atkSpd:1,
-      attackCounter:0,
-      pressingDown:false,
-      pressingUp:false,
-      pressingLeft:false,
-      pressingRight:false,
-      pressingA:false,
-      aimAngle:0,
+  Entity = function(type,id,x,y,spdX,spdY,width,height,color) {
+    var self = {
+      type:type,
+      x:x,
+      y:x,
+      spdX:spdX,
+      spdY:spdY,
+      width:width,
+      height:height,
+      color:color,
+    };
+    self.update = function() {
+      self.updatePosition();
+      self.draw();
     }
+    self.updatePosition = function() {
+      if(self.type === 'player') {
+        if(self.pressingRight)
+          self.x += 10;
+        if(self.pressingLeft)
+          self.x -= 10;
+        if(self.pressingDown)
+          self.y += 10;
+        if(self.pressingUp)
+          self.y -= 10;
+
+        if(self.x < self.width/2)
+          self.x = self.width/2;
+        if(self.x > WIDTH - self.width/2)
+          self.x = WIDTH - self.width/2;
+        if(self.y < self.height/2)
+          self.y = self.height/2;
+        if(self.y > HEIGHT - self.height/2)
+          self.y = HEIGHT - self.height/2;
+      }
+      else {
+        self.x += self.spdX;
+        self.y += self.spdY;
+        if(self.x < 0 || self.x > WIDTH) {
+          self.spdX = -self.spdX;
+        }
+        if(self.y < 0 || self.y > HEIGHT) {
+          self.spdY = -self.spdY;
+        }
+      }
+    }
+    self.draw = function() {
+      game.save();
+      game.fillStyle = self.color;
+      game.fillRect(self.x-self.width/2,self.y-self.height/2,self.width,self.height);
+      game.restore();
+    }
+    self.getDistance = function(entity2) {
+      var vx = self.x - entity2.x;
+      var vy = self.y - entity2.y;
+      return Math.sqrt(vx*vx+vy*vy);
+    }
+    self.testCollision = function(entity2) {
+
+      var rect1 = {
+        x:self.x-self.width/2,
+        y:self.y-self.height/2,
+        width:self.width,
+        height:self.height,
+      }
+
+      var rect2 = {
+        x:entity2.x-entity2.width/2,
+        y:entity2.y-entity2.height/2,
+        width:entity2.width,
+        height:entity2.height,
+      }
+
+      return testCollisionRectRect(rect1,rect2);
+    }
+
+    return self;
+  }
+
+  createPlayer = function() {
+    var self = Entity('player','myID',50,40,30,5,20,20,'green');
+
+    self.atkSpd = 1;
+    self.attackCounter = 0;
+    self.aimAngle = 0;
+    self.hp = 10;
+    self.maxHp = 10;
+
+    self.pressingDown = false;
+    self.pressingUp = false;
+    self.pressingLeft = false;
+    self.pressingRight = false;
+
+    player = self;
   }
 
   var enemyList = {};
@@ -46,47 +118,15 @@
 
   var bulletList = {};
 
-  getDistanceBetweenEntity = function(entity1,entity2) {
-    var vx = entity1.x - entity2.x;
-    var vy = entity1.y - entity2.y;
-    return Math.sqrt(vx*vx+vy*vy);
-  }
-
-  testCollisionEntity = function(entity1,entity2) {
-
-    var rect1 = {
-      x:entity1.x-entity1.width/2,
-      y:entity1.y-entity1.height/2,
-      width:entity1.width,
-      height:entity1.height,
-    }
-
-    var rect2 = {
-      x:entity2.x-entity2.width/2,
-      y:entity2.y-entity2.height/2,
-      width:entity2.width,
-      height:entity2.height,
-    }
-
-    return testCollisionRectRect(rect1,rect2);
-  }
-
   Enemy = function(id,x,y,spdX,spdY,width,height) {
-    var enemy = {
-      type:'enemy',
-      x:x,
-      y:y,
-      spdX:spdX,
-      spdY:spdY,
-      id:id,
-      width:width,
-      height:height,
-      color:'red',
-      aimAngle:0,
-      atkSpd:1,
-      attackCounter:0,
-    };
-    enemyList[id] = enemy;
+    var self = Entity('ennemy',id,x,y,spdX,spdY,width,height,'red');
+
+    self.hp = 10;
+    self.aimAngle = 0;
+    self.atkSpd = 1;
+    self.attackCounter = 0;
+
+    enemyList[id] = self;
   }
 
   randomlyGenerateEnemy = function() {
@@ -104,19 +144,11 @@
   }
 
   Upgrade = function(id,x,y,spdX,spdY,width,height,category,color) {
-    var upgrade = {
-      type:'upgrade',
-      x:x,
-      y:y,
-      spdX:spdX,
-      spdY:spdY,
-      id:id,
-      width:width,
-      height:height,
-      color:color,
-      category:category,
-    };
-    upgradeList[id] = upgrade;
+    var self = Entity('upgrade',id,x,y,spdX,spdY,width,height,color);
+
+    self.category = category;
+
+    upgradeList[id] = self;
   }
 
   randomlyGenerateUpgrade = function() {
@@ -143,19 +175,11 @@
   }
 
   Bullet = function(id,x,y,spdX,spdY,width,height) {
-    var bullet = {
-      type:'bullet',
-      x:x,
-      y:y,
-      spdX:spdX,
-      spdY:spdY,
-      id:id,
-      width:width,
-      height:height,
-      color:'black',
-      timer:0,
-    };
-    bulletList[id] = bullet;
+    var self = Entity('bullet',id,x,y,spdX,spdY,width,height,'black');
+
+    self.timer = 0;
+
+    bulletList[id] = self;
   }
 
   generateBullet = function(actor,overwriteAngle) {
@@ -176,55 +200,11 @@
 
   }
 
-  updateEntity = function(value) {
-    updateEntityPosition(value);
-    drawEntity(value);
-  }
-
-  updateEntityPosition = function(value) {
-    if(value.type === 'player') {
-      if(player.pressingRight)
-        player.x += 10;
-      if(player.pressingLeft)
-        player.x -= 10;
-      if(player.pressingDown)
-        player.y += 10;
-      if(player.pressingUp)
-        player.y -= 10;
-
-      if(player.x < player.width/2)
-        player.x = player.width/2;
-      if(player.x > WIDTH - player.width/2)
-        player.x = WIDTH - player.width/2;
-      if(player.y < player.height/2)
-        player.y = player.height/2;
-      if(player.y > HEIGHT - player.height/2)
-        player.y = HEIGHT - player.height/2;
-    }
-    else {
-      value.x += value.spdX;
-      value.y += value.spdY;
-      if(value.x < 0 || value.x > WIDTH) {
-        value.spdX = -value.spdX;
-      }
-      if(value.y < 0 || value.y > HEIGHT) {
-        value.spdY = -value.spdY;
-      }
-    }
-  }
-
   testCollisionRectRect = function(rect1,rect2) {
     return rect1.x <= rect2.x+rect2.width
         && rect2.x <= rect1.x+rect1.width
         && rect1.y <= rect2.y+rect2.height
         && rect2.y <= rect1.y+rect1.height;
-  }
-
-  drawEntity = function(value) {
-    game.save();
-    game.fillStyle = value.color;
-    game.fillRect(value.x-value.width/2,value.y-value.height/2,value.width,value.height);
-    game.restore();
   }
 
   document.onmousemove = function(event) {
@@ -307,7 +287,7 @@
     player.attackCounter += player.atkSpd;
 
     for(var getBulletList in bulletList) {
-      updateEntity(bulletList[getBulletList]);
+      bulletList[getBulletList].update();
 
       var toRemove = false;
       bulletList[getBulletList].timer++;
@@ -316,7 +296,7 @@
       }
 
       for(var getEnemyList in enemyList) {
-        var isColliding = testCollisionEntity(bulletList[getBulletList],enemyList[getEnemyList]);
+        var isColliding = bulletList[getBulletList].testCollision(enemyList[getEnemyList]);
         if(isColliding) {
           toRemove = true;
           delete enemyList[getEnemyList];
@@ -329,9 +309,9 @@
     }
 
     for(var getUpgradeList in upgradeList) {
-      updateEntity(upgradeList[getUpgradeList]);
+      upgradeList[getUpgradeList].update();
 
-      var isColliding = testCollisionEntity(player,upgradeList[getUpgradeList]);
+      var isColliding = player.testCollision(upgradeList[getUpgradeList]);
       if(isColliding) {
         if(upgradeList[getUpgradeList].category === 'score')
         score += 1000;
@@ -342,9 +322,9 @@
     }
 
     for(var getEnemyList in enemyList) {
-      updateEntity(enemyList[getEnemyList]);
+      enemyList[getEnemyList].update();
 
-      var isColliding = testCollisionEntity(player,enemyList[getEnemyList]);
+      var isColliding = player.testCollision(enemyList[getEnemyList]);
       if(isColliding) {
         player.hp = player.hp - 1;
       }
@@ -358,7 +338,7 @@
       startNewGame();
 
     }
-    updateEntity(player);
+    player.update();
     game.fillText(player.hp + " HP",0,30);
     game.fillText('Score : ' + score,200,30);
   }
