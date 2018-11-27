@@ -9,6 +9,7 @@ startNewGame = function() {
   timeWhenGameStarted = Date.now();
   frameCount = 0;
   score = 0;
+  player.atkSpd = 1;
   enemyList = {};
   upgradeList = {};
   bulletList = {};

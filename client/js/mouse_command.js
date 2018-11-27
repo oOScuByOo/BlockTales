@@ -17,11 +17,22 @@ document.onmousemove = function(event) {
   player.aimAngle = (Math.atan2(mouseY, mouseX) / Math.PI) * 180;
 };
 
-document.onclick = function(event) {
-  player.performAttack();
+document.onmousedown = function(event) {
+  if (event.which === 1) {
+    player.pressingMouseLeft = true;
+  } else {
+    player.pressingMouseRight = true;
+  }
+};
+
+document.onmouseup = function(event) {
+  if (event.which === 1) {
+    player.pressingMouseLeft = false;
+  } else {
+    player.pressingMouseRight = false;
+  }
 };
 
 document.oncontextmenu = function(event) {
-  player.performSpecialAttack();
   event.preventDefault();
 };

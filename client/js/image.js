@@ -6,11 +6,11 @@
 
 var Img = {};
 Img.player = new Image();
-Img.player.src = "img/game/player/player_idle.png";
+Img.player.src = "img/game/player/player.png";
 Img.head = new Image();
-Img.head.src = "img/game/enemy/head.png";
+Img.head.src = "img/game/enemy/redLonely.png";
 Img.skeleton = new Image();
-Img.skeleton.src = "img/game/enemy/skeleton.png";
+Img.skeleton.src = "img/game/enemy/redPiggy.png";
 Img.bullet = new Image();
 Img.bullet.src = "img/game/bullet/bullet.png";
 Img.upgrade_score = new Image();

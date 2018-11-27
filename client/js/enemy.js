@@ -39,6 +39,27 @@ Enemy = function(id, x, y, width, height, img, hp, atkSpd) {
     if (diffY > 0) self.y += 3;
     else self.y -= 3;
   };
+
+  var super_draw = self.draw;
+  self.draw = function() {
+    super_draw();
+
+    var x = self.x - player.x + WIDTH / 2;
+    var y = self.y - player.y + HEIGHT / 2 - self.height / 2 - 20;
+
+    game.save();
+    game.fillStyle = "red";
+    var width = (30 * self.hp) / self.hpMax;
+    if (width < 0) {
+      width = 0;
+    }
+    game.fillRect(x - 10, y, width, 5);
+
+    game.strokeStyle = "black";
+    game.strokeRect(x - 10, y, 30, 5);
+
+    game.restore();
+  };
 };
 
 randomlyGenerateEnemy = function() {

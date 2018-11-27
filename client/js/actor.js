@@ -8,6 +8,7 @@ Actor = function(type, id, x, y, width, height, img, hp, atkSpd) {
   var self = Entity(type, id, x, y, width, height, img);
 
   self.hp = hp;
+  self.hpMax = hp;
   self.atkSpd = atkSpd;
   self.attackCounter = 0;
   self.aimAngle = 0;

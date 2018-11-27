@@ -26,12 +26,21 @@ Player = function() {
   var super_update = self.update;
   self.update = function() {
     super_update();
+    if (self.pressingMouseLeft) {
+      self.performAttack();
+    }
+    if (self.pressingMouseRight) {
+      self.performSpecialAttack();
+    }
   };
 
   self.pressingDown = false;
   self.pressingUp = false;
   self.pressingLeft = false;
   self.pressingRight = false;
+
+  self.pressingMouseLeft = false;
+  self.pressingMouseRight = false;
   return self;
 };
 
