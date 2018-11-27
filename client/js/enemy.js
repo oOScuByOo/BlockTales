@@ -6,12 +6,13 @@
 
 var enemyList = {};
 
-Enemy = function(id, x, y, spdX, spdY, width, height) {
-  var self = Actor("enemy", id, x, y, spdX, spdY, width, height, Img.enemy, 10, 1);
+Enemy = function(id, x, y, width, height, img, hp, atkSpd) {
+  var self = Actor("enemy", id, x, y, width, height, img, hp, atkSpd);
 
   var super_update = self.update;
   self.update = function() {
     super_update();
+    self.updateAim();
     self.performAttack();
 
     var isColliding = player.testCollision(self);
@@ -21,16 +22,31 @@ Enemy = function(id, x, y, spdX, spdY, width, height) {
   };
 
   enemyList[id] = self;
+
+  self.updateAim = function() {
+    var diffX = player.x - self.x;
+    var diffY = player.y - self.y;
+
+    self.aimAngle = (Math.atan2(diffY, diffX) / Math.PI) * 180;
+  };
+
+  self.updatePosition = function() {
+    var diffX = player.x - self.x;
+    var diffY = player.y - self.y;
+
+    if (diffX > 0) self.x += 3;
+    else self.x -= 3;
+    if (diffY > 0) self.y += 3;
+    else self.y -= 3;
+  };
 };
 
 randomlyGenerateEnemy = function() {
   //Math.random() returns a number between 0 and 1
   var x = Math.random() * currentMap.width;
   var y = Math.random() * currentMap.height;
-  var height = 10
-  var width = 9
+  var height = 10;
+  var width = 9;
   var id = Math.random();
-  var spdX = 5 + Math.random() * 5;
-  var spdY = 5 + Math.random() * 5;
-  Enemy(id, x, y, spdX, spdY, width, height);
+  Enemy(id, x, y, width, height, Img.enemy, 2, 1);
 };

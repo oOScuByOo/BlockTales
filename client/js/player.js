@@ -4,12 +4,10 @@
 * [+] Twitter : @tomy_lee_m                                *
 \**********************************************************/
 
-
-
 var player;
 
 Player = function() {
-  var self = Actor("player", "myId", 50, 40, 30, 5, 10, 15, Img.player, 10, 1);
+  var self = Actor("player", "myId", 50, 40, 10, 15, Img.player, 10, 1);
 
   self.updatePosition = function() {
     if (self.pressingRight) self.x += 10;
@@ -19,18 +17,15 @@ Player = function() {
 
     //ispositionvalid
     if (self.x < self.width / 2) self.x = self.width / 2;
-    if (self.x > currentMap.width - self.width / 2) self.x = currentMap.width - self.width / 2;
+    if (self.x > currentMap.width - self.width / 2)
+      self.x = currentMap.width - self.width / 2;
     if (self.y < self.height / 2) self.y = self.height / 2;
-    if (self.y > currentMap.height - self.height / 2) self.y = currentMap.height - self.height / 2;
+    if (self.y > currentMap.height - self.height / 2)
+      self.y = currentMap.height - self.height / 2;
   };
   var super_update = self.update;
   self.update = function() {
     super_update();
-    if (self.hp <= 0) {
-      var timeSurvived = Date.now() - timeWhenGameStarted;
-      console.log("You lost! You survived for " + timeSurvived + " ms.");
-      startNewGame();
-    }
   };
 
   self.pressingDown = false;

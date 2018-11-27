@@ -4,8 +4,8 @@
 * [+] Twitter : @tomy_lee_m                                *
 \**********************************************************/
 
-Actor = function(type, id, x, y, spdX, spdY, width, height, img, hp, atkSpd) {
-  var self = Entity(type, id, x, y, spdX, spdY, width, height, img);
+Actor = function(type, id, x, y, width, height, img, hp, atkSpd) {
+  var self = Entity(type, id, x, y, width, height, img);
 
   self.hp = hp;
   self.atkSpd = atkSpd;
@@ -15,7 +15,22 @@ Actor = function(type, id, x, y, spdX, spdY, width, height, img, hp, atkSpd) {
   var super_update = self.update;
   self.update = function() {
     super_update();
+
     self.attackCounter += self.atkSpd;
+
+    if (self.hp <= 0) {
+      self.onDeath();
+    }
+  };
+
+  self.onDeath = function() {
+    if (self.type === "enemy") {
+      delete enemyList[self.id];
+    } else if (self.type === "player") {
+      var timeSurvived = Date.now() - timeWhenGameStarted;
+      console.log("You lost! You survived for " + timeSurvived + " ms.");
+      startNewGame();
+    }
   };
 
   self.performAttack = function() {

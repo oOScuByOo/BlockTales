@@ -4,14 +4,12 @@
 * [+] Twitter : @tomy_lee_m                                *
 \**********************************************************/
 
-Entity = function(type, id, x, y, spdX, spdY, width, height, img) {
+Entity = function(type, id, x, y, width, height, img) {
   var self = {
     type: type,
     id: id,
     x: x,
     y: y,
-    spdX: spdX,
-    spdY: spdY,
     width: width,
     height: height,
     img: img
@@ -26,11 +24,11 @@ Entity = function(type, id, x, y, spdX, spdY, width, height, img) {
     var x = self.x - player.x;
     var y = self.y - player.y;
 
-    x += WIDTH/2;
-    y += HEIGHT/2;
+    x += WIDTH / 2;
+    y += HEIGHT / 2;
 
-    x -= self.width/2;
-    y -= self.height/2;
+    x -= self.width / 2;
+    y -= self.height / 2;
 
     game.drawImage(
       self.img,
@@ -41,10 +39,13 @@ Entity = function(type, id, x, y, spdX, spdY, width, height, img) {
       x,
       y,
       self.width * 2,
-      self.height * 2,
+      self.height * 2
     );
     game.restore();
   };
+
+  self.updatePosition = function() {};
+
   self.getDistance = function(entity2) {
     //return distance (number)
     var vx = self.x - entity2.x;
@@ -68,17 +69,5 @@ Entity = function(type, id, x, y, spdX, spdY, width, height, img) {
     };
     return testCollisionRectRect(rect1, rect2);
   };
-  self.updatePosition = function() {
-    self.x += self.spdX;
-    self.y += self.spdY;
-
-    if (self.x < 0 || self.x > currentMap.width) {
-      self.spdX = -self.spdX;
-    }
-    if (self.y < 0 || self.y > currentMap.height) {
-      self.spdY = -self.spdY;
-    }
-  };
-
   return self;
 };

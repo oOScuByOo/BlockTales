@@ -5,6 +5,11 @@
 \**********************************************************/
 
 update = function() {
+  if (paused) {
+    game.fillText("PAUSE", WIDTH / 2.5, HEIGHT / 2);
+    return;
+  }
+
   game.clearRect(0, 0, WIDTH, HEIGHT);
 
   currentMap.draw();

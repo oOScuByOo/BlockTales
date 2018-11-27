@@ -17,6 +17,9 @@ document.onkeydown = function(event) {
   else if (event.keyCode === 90)
     // Z
     player.pressingUp = true;
+  else if (event.keyCode === 27)
+    // ESC
+    paused = !paused;
 };
 
 document.onkeyup = function(event) {

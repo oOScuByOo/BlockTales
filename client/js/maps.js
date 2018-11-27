@@ -4,13 +4,13 @@
 * [+] Twitter : @tomy_lee_m                                *
 \**********************************************************/
 
-Maps = function(id,imgSrc,width,height) {
+Maps = function(id, imgSrc, width, height) {
   var self = {
-    id:id,
-    image:new Image(),
-    width:width,
-    height:height,
-  }
+    id: id,
+    image: new Image(),
+    width: width,
+    height: height
+  };
 
   self.image.src = imgSrc;
 
@@ -26,10 +26,10 @@ Maps = function(id,imgSrc,width,height) {
       x,
       y,
       self.image.width * 20,
-      self.image.height * 20,
+      self.image.height * 20
     );
-  }
+  };
   return self;
-}
+};
 
-currentMap = Maps('hideout','img/game/map/map.png',1000,1000)
+currentMap = Maps("hideout", "img/game/map/map.png", 1000, 1000);
