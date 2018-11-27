@@ -7,7 +7,7 @@
 var player;
 
 Player = function() {
-  var self = Actor("player", "myId", 50, 40, 10, 15, Img.player, 10, 1);
+  var self = Actor("player", "myId", 50, 40, 16, 16, Img.player, 10, 1);
 
   self.updatePosition = function() {
     if (self.pressingRight) self.x += 10;

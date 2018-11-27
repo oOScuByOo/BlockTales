@@ -68,8 +68,8 @@ randomlyGenerateEnemy = function() {
   var y = Math.random() * currentMap.height;
   var id = Math.random();
   if (Math.random() < 0.5) {
-    Enemy(id, x, y, 9, 10, Img.head, 2, 3);
+    Enemy(id, x, y, 16, 16, Img.head, 2, 3);
   } else {
-    Enemy(id, x, y, 10, 14, Img.skeleton, 5, 1);
+    Enemy(id, x, y, 16, 16, Img.skeleton, 5, 1);
   }
 };
