@@ -4,7 +4,7 @@
 * [+] Twitter : @tomy_lee_m                                *
 \**********************************************************/
 
-Entity = function(type, id, x, y, spdX, spdY, width, height, color) {
+Entity = function(type, id, x, y, spdX, spdY, width, height, img) {
   var self = {
     type: type,
     id: id,
@@ -14,7 +14,7 @@ Entity = function(type, id, x, y, spdX, spdY, width, height, color) {
     spdY: spdY,
     width: width,
     height: height,
-    color: color
+    img: img
   };
   self.update = function() {
     self.updatePosition();
@@ -22,12 +22,26 @@ Entity = function(type, id, x, y, spdX, spdY, width, height, color) {
   };
   self.draw = function() {
     game.save();
-    game.fillStyle = self.color;
-    game.fillRect(
-      self.x - self.width / 2,
-      self.y - self.height / 2,
-      self.width,
-      self.height
+
+    var x = self.x - player.x;
+    var y = self.y - player.y;
+
+    x += WIDTH/2;
+    y += HEIGHT/2;
+
+    x -= self.width/2;
+    y -= self.height/2;
+
+    game.drawImage(
+      self.img,
+      0,
+      0,
+      self.img.width,
+      self.img.height,
+      x,
+      y,
+      self.width * 2,
+      self.height * 2,
     );
     game.restore();
   };
@@ -58,10 +72,10 @@ Entity = function(type, id, x, y, spdX, spdY, width, height, color) {
     self.x += self.spdX;
     self.y += self.spdY;
 
-    if (self.x < 0 || self.x > WIDTH) {
+    if (self.x < 0 || self.x > currentMap.width) {
       self.spdX = -self.spdX;
     }
-    if (self.y < 0 || self.y > HEIGHT) {
+    if (self.y < 0 || self.y > currentMap.height) {
       self.spdY = -self.spdY;
     }
   };

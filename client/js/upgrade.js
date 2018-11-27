@@ -6,8 +6,8 @@
 
 var upgradeList = {};
 
-Upgrade = function(id, x, y, spdX, spdY, width, height, category, color) {
-  var self = Entity("upgrade", id, x, y, spdX, spdY, width, height, color);
+Upgrade = function(id, x, y, spdX, spdY, width, height, category, img) {
+  var self = Entity("upgrade", id, x, y, spdX, spdY, width, height, img);
 
   var super_update = self.update;
   self.update = function() {
@@ -26,21 +26,21 @@ Upgrade = function(id, x, y, spdX, spdY, width, height, category, color) {
 
 randomlyGenerateUpgrade = function() {
   //Math.random() returns a number between 0 and 1
-  var x = Math.random() * WIDTH;
-  var y = Math.random() * HEIGHT;
-  var height = 10;
-  var width = 10;
+  var x = Math.random() * currentMap.width;
+  var y = Math.random() * currentMap.height;
+  var height = 11;
+  var width = 7;
   var id = Math.random();
   var spdX = 0;
   var spdY = 0;
 
   if (Math.random() < 0.5) {
     var category = "score";
-    var color = "orange";
+    var img = Img.upgrade_score;
   } else {
-    var category = "atkSpd";
-    var color = "purple";
+    var category = "atkSpd"
+    var img = Img.upgrade_atkspd;
   }
 
-  Upgrade(id, x, y, spdX, spdY, width, height, category, color);
+  Upgrade(id, x, y, spdX, spdY, width, height, category, img);
 };

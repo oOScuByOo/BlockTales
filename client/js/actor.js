@@ -4,8 +4,8 @@
 * [+] Twitter : @tomy_lee_m                                *
 \**********************************************************/
 
-Actor = function(type, id, x, y, spdX, spdY, width, height, color, hp, atkSpd) {
-  var self = Entity(type, id, x, y, spdX, spdY, width, height, color);
+Actor = function(type, id, x, y, spdX, spdY, width, height, img, hp, atkSpd) {
+  var self = Entity(type, id, x, y, spdX, spdY, width, height, img);
 
   self.hp = hp;
   self.atkSpd = atkSpd;

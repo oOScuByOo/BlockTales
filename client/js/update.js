@@ -7,6 +7,8 @@
 update = function() {
   game.clearRect(0, 0, WIDTH, HEIGHT);
 
+  currentMap.draw();
+
   frameCount++;
 
   score++;

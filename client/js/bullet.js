@@ -7,7 +7,7 @@
 var bulletList = {};
 
 Bullet = function(id, x, y, spdX, spdY, width, height) {
-  var self = Entity("bullet", id, x, y, spdX, spdY, width, height, "black");
+  var self = Entity("bullet", id, x, y, spdX, spdY, width, height, Img.bullet);
 
   self.timer = 0;
 
@@ -41,8 +41,8 @@ generateBullet = function(actor, aimOverwrite) {
   //Math.random() returns a number between 0 and 1
   var x = actor.x;
   var y = actor.y;
-  var height = 10;
-  var width = 10;
+  var height = 3;
+  var width = 3;
   var id = Math.random();
 
   var angle;
