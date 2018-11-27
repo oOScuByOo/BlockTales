@@ -7,8 +7,10 @@
 var Img = {};
 Img.player = new Image();
 Img.player.src = "img/game/player/player_idle.png";
-Img.enemy = new Image();
-Img.enemy.src = "img/game/enemy/enemy_idle.png";
+Img.head = new Image();
+Img.head.src = "img/game/enemy/head.png";
+Img.skeleton = new Image();
+Img.skeleton.src = "img/game/enemy/skeleton.png";
 Img.bullet = new Image();
 Img.bullet.src = "img/game/bullet/bullet.png";
 Img.upgrade_score = new Image();
