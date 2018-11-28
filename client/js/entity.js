@@ -38,8 +38,8 @@ Entity = function(type, id, x, y, width, height, img) {
       self.img.height,
       x,
       y,
-      self.width * 2,
-      self.height * 2
+      self.width,
+      self.height,
     );
     game.restore();
   };

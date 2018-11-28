@@ -53,6 +53,11 @@ Bullet = function(id, x, y, spdX, spdY, width, height, combatType) {
         }
       }
     }
+
+    if (currentMap.isPositionWall(self)) {
+      toRemove = true;
+    }
+
     if (toRemove) {
       delete bulletList[self.id];
     }

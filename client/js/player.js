@@ -7,9 +7,22 @@
 var player;
 
 Player = function() {
-  var self = Actor("player", "myId", 50, 40, 16, 16, Img.player, 10, 1);
+  var self = Actor(
+    "player",
+    "myId",
+    27 * TILE_SIZE,
+    14 * TILE_SIZE,
+    16,
+    16,
+    Img.player,
+    10,
+    1
+  );
 
   self.updatePosition = function() {
+    var oldX = self.x;
+    var oldY = self.y;
+
     if (self.pressingRight) self.x += 10;
     if (self.pressingLeft) self.x -= 10;
     if (self.pressingDown) self.y += 10;
@@ -22,7 +35,13 @@ Player = function() {
     if (self.y < self.height / 2) self.y = self.height / 2;
     if (self.y > currentMap.height - self.height / 2)
       self.y = currentMap.height - self.height / 2;
+
+    if (currentMap.isPositionWall(self)) {
+      self.x = oldX;
+      self.y = oldY;
+    }
   };
+
   var super_update = self.update;
   self.update = function() {
     super_update();

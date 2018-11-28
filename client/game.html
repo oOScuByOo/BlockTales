@@ -10,6 +10,7 @@
 
 <script src="js/image.js"></script>
 
+<script src="map_array/mapHub.js"></script>
 <script src="js/maps.js"></script>
 
 
@@ -34,6 +35,10 @@
 
   var game = document.getElementById('game').getContext("2d");
   game.font = '30px Arial';
+
+  game.mozImageSmoothingEnabled = false;	//better graphics for pixel art
+  game.msImageSmoothingEnabled = false;
+  game.imageSmoothingEnabled = false;
 
   var HEIGHT = 500;
   var WIDTH = 500;

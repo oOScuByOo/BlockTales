@@ -31,6 +31,9 @@ Enemy = function(id, x, y, width, height, img, hp, atkSpd) {
   };
 
   self.updatePosition = function() {
+    var oldX = self.x;
+    var oldY = self.y;
+
     var diffX = player.x - self.x;
     var diffY = player.y - self.y;
 
@@ -38,6 +41,11 @@ Enemy = function(id, x, y, width, height, img, hp, atkSpd) {
     else self.x -= 3;
     if (diffY > 0) self.y += 3;
     else self.y -= 3;
+
+    if (currentMap.isPositionWall(self)) {
+      self.x = oldX;
+      self.y = oldY;
+    }
   };
 
   var super_draw = self.draw;

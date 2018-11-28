@@ -4,15 +4,28 @@
 * [+] Twitter : @tomy_lee_m                                *
 \**********************************************************/
 
-Maps = function(id, imgSrc, width, height) {
+
+
+var TILE_SIZE = 32;
+
+Maps = function(id, imgSrc, grid) {
   var self = {
     id: id,
     image: new Image(),
-    width: width,
-    height: height
+    width: grid[0].length * TILE_SIZE,
+    height: grid.length * TILE_SIZE,
+    grid: grid
   };
 
   self.image.src = imgSrc;
+
+  self.isPositionWall = function(pt) {
+    var gridX = Math.floor(pt.x / TILE_SIZE);
+    var gridY = Math.floor(pt.y / TILE_SIZE);
+    if (gridX < 0 || gridX >= self.grid[0].length) return true;
+    if (gridY < 0 || gridY >= self.grid.length) return true;
+    return self.grid[gridY][gridX];
+  };
 
   self.draw = function() {
     var x = WIDTH / 2 - player.x;
@@ -25,11 +38,11 @@ Maps = function(id, imgSrc, width, height) {
       self.image.height,
       x,
       y,
-      self.image.width * 20,
-      self.image.height * 20
+      self.image.width * 2,
+      self.image.height * 2,
     );
   };
   return self;
 };
 
-currentMap = Maps("hideout", "img/game/map/map.png", 1000, 1000);
+currentMap = Maps("hideout", "img/game/map/hub.png", mapHub2D);
