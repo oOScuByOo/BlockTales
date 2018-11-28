@@ -12,6 +12,7 @@ Enemy = function(id, x, y, width, height, img, hp, atkSpd) {
   var super_update = self.update;
   self.update = function() {
     super_update();
+    self.updateKeyPress();
     self.updateAim();
     self.performAttack();
 
@@ -23,29 +24,21 @@ Enemy = function(id, x, y, width, height, img, hp, atkSpd) {
 
   enemyList[id] = self;
 
+  self.updateKeyPress = function() {
+    var diffX = player.x - self.x;
+    var diffY = player.y - self.y;
+
+    self.pressingRight = diffX > 3; // At least half of player's maximum speed
+    self.pressingLeft = diffX < -3;
+    self.pressingDown = diffY > 3;
+    self.pressingUp = diffY < -3;
+  };
+
   self.updateAim = function() {
     var diffX = player.x - self.x;
     var diffY = player.y - self.y;
 
     self.aimAngle = (Math.atan2(diffY, diffX) / Math.PI) * 180;
-  };
-
-  self.updatePosition = function() {
-    var oldX = self.x;
-    var oldY = self.y;
-
-    var diffX = player.x - self.x;
-    var diffY = player.y - self.y;
-
-    if (diffX > 0) self.x += 3;
-    else self.x -= 3;
-    if (diffY > 0) self.y += 3;
-    else self.y -= 3;
-
-    if (currentMap.isPositionWall(self)) {
-      self.x = oldX;
-      self.y = oldY;
-    }
   };
 
   var super_draw = self.draw;

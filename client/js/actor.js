@@ -12,8 +12,14 @@ Actor = function(type, id, x, y, width, height, img, hp, atkSpd) {
   self.atkSpd = atkSpd;
   self.attackCounter = 0;
   self.aimAngle = 0;
+  self.maxMoveSpd = 3;
 
   self.spriteAnimeCounter = 0;
+
+  self.pressingDown = false;
+  self.pressingUp = false;
+  self.pressingLeft = false;
+  self.pressingRight = false;
 
   self.draw = function() {
     game.save();
@@ -58,6 +64,47 @@ Actor = function(type, id, x, y, width, height, img, hp, atkSpd) {
       self.height * 2
     );
     game.restore();
+  };
+
+  self.updatePosition = function() {
+    var rightBumper = { x: self.x + 24, y: self.y };
+    var leftBumper = { x: self.x - 6, y: self.y };
+    var downBumper = { x: self.x, y: self.y + 30 };
+    var upBumper = { x: self.x, y: self.y - 3 };
+
+    if(currentMap.isPositionWall(rightBumper)){
+			self.x -= 5;
+		} else {
+			if(self.pressingRight)
+				self.x += self.maxMoveSpd;
+		}
+
+		if(currentMap.isPositionWall(leftBumper)){
+			self.x += 5;
+		} else {
+			if(self.pressingLeft)
+				self.x -= self.maxMoveSpd;
+		}
+		if(currentMap.isPositionWall(downBumper)){
+			self.y -= 5;
+		} else {
+			if(self.pressingDown)
+				self.y += self.maxMoveSpd;
+		}
+		if(currentMap.isPositionWall(upBumper)){
+			self.y += 5;
+		} else {
+			if(self.pressingUp)
+				self.y -= self.maxMoveSpd;
+		}
+
+    //ispositionvalid
+    if (self.x < self.width / 2) self.x = self.width / 2;
+    if (self.x > currentMap.width - self.width / 2)
+      self.x = currentMap.width - self.width / 2;
+    if (self.y < self.height / 2) self.y = self.height / 2;
+    if (self.y > currentMap.height - self.height / 2)
+      self.y = currentMap.height - self.height / 2;
   };
 
   var super_update = self.update;

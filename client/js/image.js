@@ -17,5 +17,3 @@ Img.upgrade_score = new Image();
 Img.upgrade_score.src = "img/game/upgrade/upgrade_score.png";
 Img.upgrade_atkspd = new Image();
 Img.upgrade_atkspd.src = "img/game/upgrade/upgrade_atkspd.png";
-Img.map = new Image();
-Img.map.src = "img/game/map/map.png";

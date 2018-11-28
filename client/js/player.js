@@ -19,28 +19,7 @@ Player = function() {
     1
   );
 
-  self.updatePosition = function() {
-    var oldX = self.x;
-    var oldY = self.y;
-
-    if (self.pressingRight) self.x += 10;
-    if (self.pressingLeft) self.x -= 10;
-    if (self.pressingDown) self.y += 10;
-    if (self.pressingUp) self.y -= 10;
-
-    //ispositionvalid
-    if (self.x < self.width / 2) self.x = self.width / 2;
-    if (self.x > currentMap.width - self.width / 2)
-      self.x = currentMap.width - self.width / 2;
-    if (self.y < self.height / 2) self.y = self.height / 2;
-    if (self.y > currentMap.height - self.height / 2)
-      self.y = currentMap.height - self.height / 2;
-
-    if (currentMap.isPositionWall(self)) {
-      self.x = oldX;
-      self.y = oldY;
-    }
-  };
+  self.maxMoveSpd = 10;
 
   var super_update = self.update;
   self.update = function() {
