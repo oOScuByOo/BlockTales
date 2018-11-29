@@ -6,8 +6,10 @@
 \**********************************************************/
 -->
 
+<body bgcolor="#1c1117" style="margin:0px">
 <canvas id="game" width="500" height="500" style="border:1px solid #000000;"></canvas>
 <div id="inventory"></div>
+</body>
 
 <script src="js/image.js"></script>
 
@@ -37,15 +39,14 @@
 
 <script>
 
-  var game = document.getElementById('game').getContext("2d");
-  game.font = '30px Arial';
+  var gameWindow = document.getElementById('game');
+  var game = gameWindow.getContext("2d");
 
-  game.mozImageSmoothingEnabled = false;	//better graphics for pixel art
-  game.msImageSmoothingEnabled = false;
-  game.imageSmoothingEnabled = false;
+  var WIDTH = 640;
+  var HEIGHT = 360;
 
-  var HEIGHT = 500;
-  var WIDTH = 500;
+  var GAMEWINDOW_WIDTH = 640;
+  var GAMEWINDOW_HEIGHT = 360;
 
   var timeWhenGameStarted = Date.now();
 
@@ -54,6 +55,35 @@
   var score = 0;
 
   var paused = false;
+
+  let resizeCanvas = function() {
+    GAMEWINDOW_WIDTH = window.innerWidth - 4;
+    GAMEWINDOW_HEIGHT = window.innerHeight - 4;
+
+    var screenRatio = 16 / 9;
+
+    if(GAMEWINDOW_HEIGHT < GAMEWINDOW_WIDTH / screenRatio) {
+      GAMEWINDOW_WIDTH = GAMEWINDOW_HEIGHT * screenRatio;
+    }
+    else {
+      GAMEWINDOW_HEIGHT = GAMEWINDOW_WIDTH / screenRatio;
+    }
+
+    gameWindow.width = WIDTH;
+    gameWindow.height = HEIGHT;
+    game.font = '30px Arial';
+    game.mozImageSmoothingEnabled = false;	// better graphics for pixel art
+    game.msImageSmoothingEnabled = false;
+    game.imageSmoothingEnabled = false;
+
+    gameWindow.style.width = '' + GAMEWINDOW_WIDTH + 'px';
+    gameWindow.style.height = '' + GAMEWINDOW_HEIGHT + 'px';
+  }
+  resizeCanvas();
+
+  window.addEventListener('resize',function() {
+    resizeCanvas();
+  })
 
   startNewGame();
 

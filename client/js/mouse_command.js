@@ -7,12 +7,12 @@
 document.onmousemove = function(event) {
   var mouseX =
     event.clientX -
-    document.getElementById("game").getBoundingClientRect().left;
+    gameWindow.getBoundingClientRect().left;
   var mouseY =
-    event.clientY - document.getElementById("game").getBoundingClientRect().top;
+    event.clientY - gameWindow.getBoundingClientRect().top;
 
-  mouseX -= WIDTH / 2;
-  mouseY -= HEIGHT / 2;
+  mouseX -= GAMEWINDOW_WIDTH / 2;
+  mouseY -= GAMEWINDOW_HEIGHT / 2;
 
   player.aimAngle = (Math.atan2(mouseY, mouseX) / Math.PI) * 180;
 };
