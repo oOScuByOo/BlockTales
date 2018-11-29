@@ -6,9 +6,16 @@
 \**********************************************************/
 -->
 
-<body bgcolor="#1c1117" style="margin:0px">
-<canvas id="game" width="500" height="500" style="border:1px solid #000000;"></canvas>
-<div id="inventory"></div>
+<head>
+  <title>BlockTales</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+  <div id="gameDiv">
+    <canvas id="game"></canvas>
+    <div id="inventory"></div>
+  </div>
 </body>
 
 <script src="js/image.js"></script>
@@ -56,9 +63,9 @@
 
   var paused = false;
 
-  let resizeCanvas = function() {
-    GAMEWINDOW_WIDTH = window.innerWidth - 4;
-    GAMEWINDOW_HEIGHT = window.innerHeight - 4;
+  var resizeCanvas = function() {
+    GAMEWINDOW_WIDTH = document.body.offsetWidth;
+    GAMEWINDOW_HEIGHT = document.body.offsetHeight;
 
     var screenRatio = 16 / 9;
 
