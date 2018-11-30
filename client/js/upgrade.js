@@ -28,16 +28,18 @@ randomlyGenerateUpgrade = function() {
   //Math.random() returns a number between 0 and 1
   var x = Math.random() * currentMap.width;
   var y = Math.random() * currentMap.height;
-  var height = 11;
-  var width = 7;
   var id = Math.random();
 
   if (Math.random() < 0.5) {
     var category = "score";
     var img = Img.upgrade_score;
+    var height = Img.upgrade_score.height;
+    var width = Img.upgrade_score.width;
   } else {
     var category = "atkSpd";
     var img = Img.upgrade_atkspd;
+    var height = Img.upgrade_atkspd.height;
+    var width = Img.upgrade_atkspd.width;
   }
 
   Upgrade(id, x, y, width, height, category, img);

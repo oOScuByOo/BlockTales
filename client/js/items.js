@@ -24,4 +24,8 @@ Item("enemy", "Spawn Enemy", function() {
   randomlyGenerateEnemy();
 });
 
+Item("guns", "Spawn Guns", function() {
+  randomlyGenerateWeapon();
+});
+
 playerInventory = Inventory();

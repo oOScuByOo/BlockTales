@@ -38,8 +38,8 @@ Entity = function(type, id, x, y, width, height, img) {
       self.img.height,
       x,
       y,
-      self.width,
-      self.height,
+      self.width * imgScale,
+      self.height * imgScale,
     );
     game.restore();
   };
@@ -51,6 +51,15 @@ Entity = function(type, id, x, y, width, height, img) {
     var vx = self.x - entity2.x;
     var vy = self.y - entity2.y;
     return Math.sqrt(vx * vx + vy * vy);
+  };
+
+  self.weaponSwap = function() {
+    if (self.weapon === "glock") {
+      changeWeaponImg(self);
+    }
+    if (self.weapon === "ak47") {
+      changeWeaponImg(self);
+    }
   };
 
   self.testCollision = function(entity2) {

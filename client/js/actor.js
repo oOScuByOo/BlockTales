@@ -13,6 +13,8 @@ Actor = function(type, id, x, y, width, height, img, hp, atkSpd) {
   self.attackCounter = 0;
   self.aimAngle = 0;
   self.maxMoveSpd = 3;
+  self.weapon = "hand_free";
+  self.weaponEquipped = false;
 
   self.spriteAnimeCounter = 0;
 
@@ -60,8 +62,8 @@ Actor = function(type, id, x, y, width, height, img, hp, atkSpd) {
       frameHeight,
       x,
       y,
-      self.width * 2,
-      self.height * 2
+      self.width * imgScale,
+      self.height * imgScale
     );
     game.restore();
   };
@@ -72,31 +74,27 @@ Actor = function(type, id, x, y, width, height, img, hp, atkSpd) {
     var downBumper = { x: self.x, y: self.y + 30 };
     var upBumper = { x: self.x, y: self.y - 3 };
 
-    if(currentMap.isPositionWall(rightBumper)){
-			self.x -= 5;
-		} else {
-			if(self.pressingRight)
-				self.x += self.maxMoveSpd;
-		}
+    if (currentMap.isPositionWall(rightBumper)) {
+      self.x -= 5;
+    } else {
+      if (self.pressingRight) self.x += self.maxMoveSpd;
+    }
 
-		if(currentMap.isPositionWall(leftBumper)){
-			self.x += 5;
-		} else {
-			if(self.pressingLeft)
-				self.x -= self.maxMoveSpd;
-		}
-		if(currentMap.isPositionWall(downBumper)){
-			self.y -= 5;
-		} else {
-			if(self.pressingDown)
-				self.y += self.maxMoveSpd;
-		}
-		if(currentMap.isPositionWall(upBumper)){
-			self.y += 5;
-		} else {
-			if(self.pressingUp)
-				self.y -= self.maxMoveSpd;
-		}
+    if (currentMap.isPositionWall(leftBumper)) {
+      self.x += 5;
+    } else {
+      if (self.pressingLeft) self.x -= self.maxMoveSpd;
+    }
+    if (currentMap.isPositionWall(downBumper)) {
+      self.y -= 5;
+    } else {
+      if (self.pressingDown) self.y += self.maxMoveSpd;
+    }
+    if (currentMap.isPositionWall(upBumper)) {
+      self.y += 5;
+    } else {
+      if (self.pressingUp) self.y -= self.maxMoveSpd;
+    }
 
     //ispositionvalid
     if (self.x < self.width / 2) self.x = self.width / 2;

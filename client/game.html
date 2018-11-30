@@ -29,11 +29,13 @@
 
 <script src="js/inventory.js"></script>
 <script src="js/items.js"></script>
+<script src="js/equipWeapon.js"></script>
 
 <script src="js/player.js"></script>
 <script src="js/enemy.js"></script>
 
 <script src="js/bullet.js"></script>
+<script src="js/weapon.js"></script>
 <script src="js/upgrade.js"></script>
 
 <script src="js/keyboard_command.js"></script>
@@ -62,6 +64,8 @@
   var score = 0;
 
   var paused = false;
+
+  var imgScale = 2;
 
   var resizeCanvas = function() {
     GAMEWINDOW_WIDTH = document.body.offsetWidth;

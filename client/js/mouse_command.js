@@ -15,6 +15,7 @@ document.onmousemove = function(event) {
   mouseY -= GAMEWINDOW_HEIGHT / 2;
 
   player.aimAngle = (Math.atan2(mouseY, mouseX) / Math.PI) * 180;
+  equippedWeapon.aimAngle = (Math.atan2(mouseY, mouseX) / Math.PI) * 180;
 };
 
 document.onmousedown = function(event) {

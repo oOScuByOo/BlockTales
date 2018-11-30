@@ -22,6 +22,8 @@ update = function() {
 
   if (frameCount % 75 === 0) randomlyGenerateUpgrade();
 
+  if (frameCount % 75 === 0) randomlyGenerateWeapon();
+
   for (var getBulletList in bulletList) {
     bulletList[getBulletList].update();
   }
@@ -32,6 +34,14 @@ update = function() {
 
   for (var getEnemyList in enemyList) {
     enemyList[getEnemyList].update();
+  }
+
+  for (var getWeaponList in weaponList) {
+    weaponList[getWeaponList].update();
+  }
+
+  for (var getEquippedWeaponList in equippedWeaponList) {
+    equippedWeaponList[getEquippedWeaponList].update();
   }
 
   player.update();

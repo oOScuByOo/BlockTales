@@ -10,9 +10,11 @@ startNewGame = function() {
   frameCount = 0;
   score = 0;
   player.atkSpd = 1;
+  player.weapon = "";
   enemyList = {};
   upgradeList = {};
   bulletList = {};
+  weaponList = {};
   randomlyGenerateEnemy();
   randomlyGenerateEnemy();
   randomlyGenerateEnemy();
