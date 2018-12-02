@@ -1,3 +1,9 @@
+/**********************************************************\
+* [+] Fichier : equipWeapon.js                             *
+* [+] Auteur : ooscubyoo                                   *
+* [+] Twitter : @tomy_lee_m                                *
+\**********************************************************/
+
 var equippedWeapon;
 
 EquippedWeapon = function() {
@@ -18,13 +24,20 @@ EquippedWeapon = function() {
   self.update = function() {
     super_update();
     self.updateGunPosition();
-    setWeaponAngle();
+    self.setWeaponAngle();
   };
 
   self.updateGunPosition = function() {
     if (self.x != player.x) self.x = player.x;
     if (self.y != player.y) self.y = player.y;
   };
+
+  self.setWeaponAngle = function() {
+    game.save();
+    game.rotate(equippedWeapon.aimAngle);
+    game.restore();
+  };
+
   return self;
 };
 
@@ -40,11 +53,5 @@ generateWeaponSkin = function() {
     equippedWeapon.category = "hand_free";
   }
 };
-
-setWeaponAngle = function() {
-  game.save();
-  game.rotate(equippedWeapon.aimAngle);
-  game.restore();
-}
 
 equippedWeapon = EquippedWeapon();

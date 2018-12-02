@@ -1,3 +1,9 @@
+/**********************************************************\
+* [+] Fichier : weapon.js                                  *
+* [+] Auteur : ooscubyoo                                   *
+* [+] Twitter : @tomy_lee_m                                *
+\**********************************************************/
+
 var weaponList = {};
 
 Weapon = function(id, x, y, width, height, category, img) {
