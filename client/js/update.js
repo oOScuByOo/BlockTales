@@ -40,9 +40,7 @@ update = function() {
     weaponList[getWeaponList].update();
   }
 
-  for (var getEquippedWeaponList in equippedWeaponList) {
-    equippedWeaponList[getEquippedWeaponList].update();
-  }
+  equippedWeapon.update();
 
   player.update();
 

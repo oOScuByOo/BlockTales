@@ -53,15 +53,6 @@ Entity = function(type, id, x, y, width, height, img) {
     return Math.sqrt(vx * vx + vy * vy);
   };
 
-  self.weaponSwap = function() {
-    if (self.weapon === "glock") {
-      changeWeaponImg(self);
-    }
-    if (self.weapon === "ak47") {
-      changeWeaponImg(self);
-    }
-  };
-
   self.testCollision = function(entity2) {
     //return if colliding (true/false)
     var rect1 = {

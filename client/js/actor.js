@@ -4,7 +4,18 @@
 * [+] Twitter : @tomy_lee_m                                *
 \**********************************************************/
 
-Actor = function(type, id, x, y, width, height, img, hp, atkSpd) {
+Actor = function(
+  type,
+  id,
+  x,
+  y,
+  width,
+  height,
+  img,
+  hp,
+  atkSpd,
+  weapon,
+) {
   var self = Entity(type, id, x, y, width, height, img);
 
   self.hp = hp;
@@ -14,7 +25,6 @@ Actor = function(type, id, x, y, width, height, img, hp, atkSpd) {
   self.aimAngle = 0;
   self.maxMoveSpd = 3;
   self.weapon = "hand_free";
-  self.weaponEquipped = false;
 
   self.spriteAnimeCounter = 0;
 
@@ -108,6 +118,7 @@ Actor = function(type, id, x, y, width, height, img, hp, atkSpd) {
   var super_update = self.update;
   self.update = function() {
     super_update();
+
     if (self.type === "player") {
       if (
         self.pressingRight ||

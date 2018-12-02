@@ -10,15 +10,12 @@ Weapon = function(id, x, y, width, height, category, img) {
     if (isColliding) {
       if (self.category === "glock") {
         player.weapon = "glock";
-        player.weaponEquipped = true;
-        self.weaponSwap();
       }
       if (self.category === "ak47") {
         player.weapon = "ak47";
-        player.weaponEquipped = true;
-        self.weaponSwap();
       }
       delete weaponList[self.id];
+      generateWeaponSkin();
     }
   };
   self.category = category;

@@ -16,7 +16,7 @@ Player = function() {
     16,
     Img.player,
     10,
-    1
+    1,
   );
 
   self.maxMoveSpd = 10;

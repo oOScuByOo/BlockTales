@@ -6,8 +6,19 @@
 
 var enemyList = {};
 
-Enemy = function(id, x, y, width, height, img, hp, atkSpd) {
-  var self = Actor("enemy", id, x, y, width, height, img, hp, atkSpd);
+Enemy = function(id, x, y, width, height, img, hp, atkSpd,weapon) {
+  var self = Actor(
+    "enemy",
+    id,
+    x,
+    y,
+    width,
+    height,
+    img,
+    hp,
+    atkSpd,
+    weapon,
+  );
 
   var super_update = self.update;
   self.update = function() {
@@ -69,8 +80,8 @@ randomlyGenerateEnemy = function() {
   var y = Math.random() * currentMap.height;
   var id = Math.random();
   if (Math.random() < 0.5) {
-    Enemy(id, x, y, 16, 16, Img.head, 2, 3);
+    Enemy(id, x, y, 16, 16, Img.head, 2, 3, "hand_free");
   } else {
-    Enemy(id, x, y, 16, 16, Img.skeleton, 5, 1);
+    Enemy(id, x, y, 16, 16, Img.skeleton, 5, 1, "hand_free");
   }
 };
