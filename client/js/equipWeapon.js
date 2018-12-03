@@ -17,25 +17,35 @@ EquippedWeapon = function() {
     Img.hand_free
   );
 
-  self.aimAngle = 0;
+  self.rotation = 0;
   self.category = "hand_free";
+
+  self.draw = function() {
+    return;
+  }
 
   var super_update = self.update;
   self.update = function() {
     super_update();
     self.updateGunPosition();
-    self.setWeaponAngle();
+    self.weaponRotation(self.rotation);
+  };
+
+  self.weaponRotation = function(rotation) {
+    game.save();
+
+    game.translate(gameWindow.width / 2, gameWindow.height / 2);
+
+    game.rotate((self.rotation * Math.PI) / 180);
+
+    game.drawImage(self.img, -self.img.width / 2, -self.img.width / 2, self.img.width * imgScale, self.img.height * imgScale);
+
+    game.restore();
   };
 
   self.updateGunPosition = function() {
     if (self.x != player.x) self.x = player.x;
     if (self.y != player.y) self.y = player.y;
-  };
-
-  self.setWeaponAngle = function() {
-    game.save();
-    game.rotate(equippedWeapon.aimAngle);
-    game.restore();
   };
 
   return self;
