@@ -40,9 +40,9 @@ update = function() {
     weaponList[getWeaponList].update();
   }
 
-  equippedWeapon.update();
-
   player.update();
+
+  equippedWeapon.update();
 
   game.fillText(player.hp + " HP", 0, 30);
   game.fillText("Score : " + score, 200, 30);

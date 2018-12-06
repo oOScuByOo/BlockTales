@@ -21,6 +21,14 @@ Player = function() {
 
   self.maxMoveSpd = 10;
 
+  self.pressingDown = false;
+  self.pressingUp = false;
+  self.pressingLeft = false;
+  self.pressingRight = false;
+
+  self.pressingMouseLeft = false;
+  self.pressingMouseRight = false;
+
   var super_update = self.update;
   self.update = function() {
     super_update();
@@ -31,14 +39,6 @@ Player = function() {
       self.performSpecialAttack();
     }
   };
-
-  self.pressingDown = false;
-  self.pressingUp = false;
-  self.pressingLeft = false;
-  self.pressingRight = false;
-
-  self.pressingMouseLeft = false;
-  self.pressingMouseRight = false;
   return self;
 };
 

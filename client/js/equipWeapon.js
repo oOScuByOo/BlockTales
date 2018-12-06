@@ -22,25 +22,74 @@ EquippedWeapon = function() {
 
   self.draw = function() {
     return;
-  }
+  };
 
   var super_update = self.update;
   self.update = function() {
     super_update();
     self.updateGunPosition();
     self.weaponRotation(self.rotation);
+    self.weaponMirrored();
+
+    self.weaponAimAngle = self.rotation;
+    if (self.weaponAimAngle < 0) {
+      self.weaponAimAngle = 360 + self.weaponAimAngle;
+    }
   };
 
   self.weaponRotation = function(rotation) {
+
     game.save();
+
+
 
     game.translate(gameWindow.width / 2, gameWindow.height / 2);
 
     game.rotate((self.rotation * Math.PI) / 180);
 
-    game.drawImage(self.img, -self.img.width / 2, -self.img.width / 2, self.img.width * imgScale, self.img.height * imgScale);
+    if (self.weaponAimAngle >= 90 && self.weaponAimAngle < 270) {
+      game.drawImage(
+
+        self.img,
+        -self.img.width / 2 - 8,
+        -self.img.height / 2 - 16,
+        self.img.width * imgScale,
+        self.img.height * imgScale
+      );
+    } else {
+      game.drawImage(
+
+        self.img,
+        -self.img.width / 2 + 8,
+        -self.img.height / 2 + 8,
+        self.img.width * imgScale,
+        self.img.height * imgScale
+      );
+    }
+
+
 
     game.restore();
+  };
+
+  self.weaponMirrored = function() {
+    if (self.weaponAimAngle >= 90 && self.weaponAimAngle < 270) {
+      if (player.weapon === "glock") {
+        self.img = Img.glock_equipped_reverse;
+      } else if (player.weapon === "ak47") {
+        self.img = Img.ak47_equipped_reverse;
+      } else if (player.weapon === "hand_free") {
+        self.img = Img.hand_free;
+      }
+    } else {
+      if (player.weapon === "glock") {
+        self.img = Img.glock_equipped;
+      } else if (player.weapon === "ak47") {
+        self.img = Img.ak47_equipped;
+      } else if (player.weapon === "hand_free") {
+        self.img = Img.hand_free;
+      }
+    }
   };
 
   self.updateGunPosition = function() {
